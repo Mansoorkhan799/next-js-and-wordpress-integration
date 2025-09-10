@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import WhoWeAre from '@/components/WhoWeAre';
 import ToolGrid from '@/components/ToolGrid';
 import Footer from '@/components/Footer';
 
@@ -21,6 +22,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <ToolGrid />
+        <WhoWeAre />
       </main>
       <Footer />
     </div>

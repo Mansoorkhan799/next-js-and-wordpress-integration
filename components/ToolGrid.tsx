@@ -1,32 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { aiTools, categories, AITool } from '@/lib/data';
-import { fetchWordPressPosts, convertWordPressPostToTool } from '@/lib/wordpress';
+import { useWordPress } from '@/lib/wordpress-provider';
 import { Download, Star, ExternalLink, Search, ArrowRight } from 'lucide-react';
 
 export default function ToolGrid() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
-  const [wordpressTools, setWordpressTools] = useState<AITool[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchWordPressData() {
-      try {
-        const posts = await fetchWordPressPosts();
-        const convertedTools = posts.map(convertWordPressPostToTool);
-        setWordpressTools(convertedTools);
-      } catch (error) {
-        console.error('Error fetching WordPress posts:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchWordPressData();
-  }, []);
+  const { wordpressTools, loading } = useWordPress();
 
   // Combine static tools with WordPress tools
   const allTools = [...aiTools, ...wordpressTools];
@@ -39,7 +22,7 @@ export default function ToolGrid() {
   });
 
   return (
-    <section className="py-16 bg-github-dark">
+    <section id="featured-tools" className="py-16 bg-github-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">

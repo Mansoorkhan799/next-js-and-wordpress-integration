@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { WordPressProvider } from '@/lib/wordpress-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -64,11 +65,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -87,8 +86,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        {children}
+      <body className={inter.className} suppressHydrationWarning>
+        <WordPressProvider>
+          {children}
+        </WordPressProvider>
       </body>
     </html>
   )

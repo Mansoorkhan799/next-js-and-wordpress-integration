@@ -58,7 +58,7 @@ export interface WordPressMedia {
 }
 
 // Cache configuration
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes - longer cache for better performance
 const cache = new Map<string, { data: any; timestamp: number }>();
 
 // Helper function to check cache
