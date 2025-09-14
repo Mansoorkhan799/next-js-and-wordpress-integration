@@ -72,7 +72,7 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 <span>Download Now</span>
               </a>
               <a
-                href={tool.downloadUrl}
+                href={tool.websiteUrl || tool.downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary flex items-center justify-center space-x-2"
@@ -176,7 +176,7 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 Download Tool
               </a>
               <a
-                href={tool.downloadUrl}
+                href={tool.websiteUrl || tool.downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full btn-secondary text-center block"

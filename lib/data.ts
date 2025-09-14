@@ -4,6 +4,7 @@ export interface AITool {
   description: string;
   category: string;
   icon: string;
+  featuredImage?: string;
   downloadUrl: string;
   features: string[];
   longDescription: string;
@@ -12,6 +13,7 @@ export interface AITool {
   rating: number;
   downloads: number;
   lastUpdated: string;
+  websiteUrl?: string;
 }
 
 export const aiTools: AITool[] = [
@@ -185,5 +187,6 @@ export const categories = [
   'Creative',
   'Writing',
   'Design',
-  'Development'
+  'Development',
+  'General'
 ];

@@ -36,6 +36,11 @@ export interface WordPressPost {
   ai_tool_pricing?: string;
   ai_tool_icon?: string;
   ai_tool_features?: string[];
+  ai_tool_about?: string;
+  ai_tool_use_cases?: string[];
+  ai_tool_downloads?: string;
+  ai_tool_last_updated?: string;
+  ai_tool_website_url?: string;
 }
 
 // WordPress category interface
@@ -213,12 +218,13 @@ export function convertWordPressPostToTool(post: WordPressPost): any {
     featuredImage: post.featured_image_src_large ? post.featured_image_src_large[0] : null,
     downloadUrl: post.ai_tool_download_url || post.link,
     features: post.ai_tool_features || [],
-    longDescription: post.content.rendered,
-    useCases: [], // Can be populated from WordPress custom fields
+    longDescription: post.ai_tool_about || post.content.rendered,
+    useCases: post.ai_tool_use_cases || [],
     pricing: post.ai_tool_pricing || 'Check Website',
-    rating: post.ai_tool_rating || '4.0',
-    downloads: 0,
-    lastUpdated: post.modified,
+    rating: parseFloat(post.ai_tool_rating || '4.0'), // Convert to number
+    downloads: parseInt(post.ai_tool_downloads || '0'),
+    lastUpdated: post.ai_tool_last_updated || post.modified,
+    websiteUrl: post.ai_tool_website_url || post.link,
     wordpressPost: post, // Keep reference to original post
   };
 }

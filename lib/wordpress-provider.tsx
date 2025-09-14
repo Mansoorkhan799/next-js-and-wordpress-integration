@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { fetchWordPressPosts, convertWordPressPostToTool, AITool } from './wordpress';
+import { AITool } from './data';
 
 interface WordPressContextType {
   wordpressTools: AITool[];
@@ -26,10 +26,18 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
     async function fetchWordPressData() {
       try {
         setError(null);
-        const posts = await fetchWordPressPosts();
-        if (isMounted) {
-          const convertedTools = posts.map(convertWordPressPostToTool);
-          setWordpressTools(convertedTools);
+        // Use the Next.js API route instead of direct WordPress API call
+        const response = await fetch('/api/wordpress/posts', {
+          // Add cache control to prevent unnecessary requests
+          cache: 'force-cache',
+          next: { revalidate: 900 } // 15 minutes cache
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (isMounted && data.success) {
+          setWordpressTools(data.data);
         }
       } catch (err) {
         if (isMounted) {
@@ -43,12 +51,15 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    fetchWordPressData();
+    // Only fetch if we don't have data yet
+    if (wordpressTools.length === 0 && loading) {
+      fetchWordPressData();
+    }
     
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [wordpressTools.length, loading]);
 
   return (
     <WordPressContext.Provider value={{ wordpressTools, loading, error }}>

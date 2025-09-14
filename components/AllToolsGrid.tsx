@@ -132,8 +132,14 @@ export default function AllToolsGrid() {
 }
 
 function ToolCard({ tool }: { tool: AITool }) {
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(tool.downloadUrl, '_blank');
+  };
+
   return (
-    <Link href={`/tools/${tool.id}`} className="group">
+    <div className="group">
       <div className="bg-github-dark-secondary border border-github-border rounded-xl p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
         {/* Background gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-github-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -179,22 +185,28 @@ function ToolCard({ tool }: { tool: AITool }) {
               {tool.category}
             </span>
             
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                window.open(tool.downloadUrl, '_blank');
-              }}
-              className="bg-github-accent hover:bg-github-accent-hover text-white px-3 py-1 rounded-lg text-xs font-medium flex items-center space-x-1 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-github-accent/25"
-            >
-              <Download size={12} />
-              <span>Get</span>
-            </button>
+            <div className="flex space-x-2">
+              <Link 
+                href={`/tools/${tool.id}`}
+                className="bg-github-dark-tertiary hover:bg-github-accent text-github-text-secondary hover:text-white px-3 py-1 rounded-lg text-xs font-medium flex items-center space-x-1 hover:scale-105 transition-all duration-300"
+              >
+                <ExternalLink size={12} />
+                <span>View</span>
+              </Link>
+              <button
+                onClick={handleDownload}
+                className="bg-github-accent hover:bg-github-accent-hover text-white px-3 py-1 rounded-lg text-xs font-medium flex items-center space-x-1 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-github-accent/25"
+              >
+                <Download size={12} />
+                <span>Get</span>
+              </button>
+            </div>
           </div>
         </div>
         
         {/* Hover effect border */}
         <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-github-accent/20 transition-colors duration-300"></div>
       </div>
-    </Link>
+    </div>
   );
 }

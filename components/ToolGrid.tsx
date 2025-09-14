@@ -105,8 +105,14 @@ export default function ToolGrid() {
 }
 
 function ToolCard({ tool }: { tool: AITool }) {
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(tool.downloadUrl, '_blank');
+  };
+
   return (
-    <Link href={`/tools/${tool.id}`} className="group">
+    <div className="group">
       <div className="bg-github-dark-secondary border border-github-border rounded-xl p-6 hover:border-github-accent hover:shadow-2xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
         {/* Background gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-github-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -180,25 +186,20 @@ function ToolCard({ tool }: { tool: AITool }) {
             </div>
             
             <div className="flex items-center space-x-2">
+              <Link 
+                href={`/tools/${tool.id}`}
+                className="bg-github-dark-tertiary hover:bg-github-accent text-github-text-secondary hover:text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 hover:scale-105 transition-all duration-300"
+              >
+                <ExternalLink size={14} />
+                <span>View</span>
+              </Link>
+              
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open(tool.downloadUrl, '_blank');
-                }}
+                onClick={handleDownload}
                 className="bg-github-accent hover:bg-github-accent-hover text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-github-accent/25"
               >
                 <Download size={14} />
                 <span>Get</span>
-              </button>
-              
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open(tool.downloadUrl, '_blank');
-                }}
-                className="text-github-text-secondary hover:text-github-accent transition-colors duration-300 hover:scale-110 transform p-1"
-              >
-                <ExternalLink size={16} />
               </button>
             </div>
           </div>
@@ -207,6 +208,6 @@ function ToolCard({ tool }: { tool: AITool }) {
         {/* Hover effect border */}
         <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-github-accent/20 transition-colors duration-300"></div>
       </div>
-    </Link>
+    </div>
   );
 }

@@ -48,16 +48,6 @@ export default function Footer() {
                   Categories
                 </Link>
               </li>
-              <li>
-                <Link href="/featured" className="text-github-text-secondary hover:text-github-accent transition-colors">
-                  Featured
-                </Link>
-              </li>
-              <li>
-                <Link href="/new" className="text-github-text-secondary hover:text-github-accent transition-colors">
-                  New Tools
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -71,13 +61,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-github-text-secondary hover:text-github-accent transition-colors">
+                <Link href="/contact-us" className="text-github-text-secondary hover:text-github-accent transition-colors">
                   Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/submit" className="text-github-text-secondary hover:text-github-accent transition-colors">
-                  Submit Tool
                 </Link>
               </li>
               <li>
