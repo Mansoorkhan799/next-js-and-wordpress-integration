@@ -140,16 +140,16 @@ function ToolCard({ tool }: { tool: AITool }) {
 
   return (
     <div className="group">
-      <div className="bg-github-dark-secondary border border-github-border rounded-xl p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+      <div className="bg-github-dark-secondary border border-github-border rounded-xl p-4 sm:p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden min-h-[280px] sm:min-h-[260px]">
         {/* Background gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-github-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
         {/* Content */}
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col h-full">
           {/* Header with icon and rating */}
           <div className="flex items-start justify-between mb-3">
             {tool.featuredImage ? (
-              <div className="w-12 h-12 rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
                 <img 
                   src={tool.featuredImage} 
                   alt={tool.name}
@@ -157,12 +157,12 @@ function ToolCard({ tool }: { tool: AITool }) {
                 />
               </div>
             ) : (
-              <div className="text-4xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
+              <div className="text-3xl sm:text-4xl group-hover:scale-110 transition-transform duration-300 filter drop-shadow-lg">
                 {tool.icon}
               </div>
             )}
             <div className="flex items-center space-x-1 bg-github-dark-tertiary px-2 py-1 rounded-full">
-              <Star size={14} className="text-yellow-400 fill-current group-hover:animate-spin transition-transform duration-300" />
+              <Star size={12} className="text-yellow-400 fill-current group-hover:animate-spin transition-transform duration-300" />
               <span className="text-xs font-semibold text-github-text group-hover:text-yellow-400 transition-colors duration-300">
                 {tool.rating}
               </span>
@@ -170,36 +170,38 @@ function ToolCard({ tool }: { tool: AITool }) {
           </div>
           
           {/* Tool name */}
-          <h3 className="text-lg font-bold text-github-text mb-2 group-hover:text-github-accent transition-colors duration-300 line-clamp-1">
+          <h3 className="text-base sm:text-lg font-bold text-github-text mb-2 group-hover:text-github-accent transition-colors duration-300 line-clamp-1">
             {tool.name}
           </h3>
           
           {/* Description */}
-          <p className="text-github-text-secondary mb-3 text-sm line-clamp-2 group-hover:text-github-text transition-colors duration-300 leading-relaxed">
+          <p className="text-github-text-secondary mb-3 text-sm line-clamp-2 group-hover:text-github-text transition-colors duration-300 leading-relaxed flex-grow">
             {tool.description}
           </p>
           
           {/* Footer with category and actions */}
-          <div className="flex items-center justify-between pt-3 border-t border-github-border group-hover:border-github-accent/30 transition-colors duration-300">
-            <span className="text-xs font-medium text-github-text-secondary bg-github-dark-tertiary px-2 py-1 rounded-full group-hover:bg-github-accent group-hover:text-white transition-all duration-300">
-              {tool.category}
-            </span>
-            
-            <div className="flex space-x-2">
-              <Link 
-                href={`/tools/${tool.id}`}
-                className="bg-github-dark-tertiary hover:bg-github-accent text-github-text-secondary hover:text-white px-3 py-1 rounded-lg text-xs font-medium flex items-center space-x-1 hover:scale-105 transition-all duration-300"
-              >
-                <ExternalLink size={12} />
-                <span>View</span>
-              </Link>
-              <button
-                onClick={handleDownload}
-                className="bg-github-accent hover:bg-github-accent-hover text-white px-3 py-1 rounded-lg text-xs font-medium flex items-center space-x-1 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-github-accent/25"
-              >
-                <Download size={12} />
-                <span>Get</span>
-              </button>
+          <div className="mt-auto pt-3 border-t border-github-border group-hover:border-github-accent/30 transition-colors duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <span className="text-xs font-medium text-github-text-secondary bg-github-dark-tertiary px-2 py-1 rounded-full group-hover:bg-github-accent group-hover:text-white transition-all duration-300 self-start">
+                {tool.category}
+              </span>
+              
+              <div className="flex space-x-2 w-full sm:w-auto">
+                <Link 
+                  href={`/tools/${tool.id}`}
+                  className="flex-1 sm:flex-none bg-github-dark-tertiary hover:bg-github-accent text-github-text-secondary hover:text-white px-3 py-2 sm:py-1 rounded-lg text-xs font-medium flex items-center justify-center space-x-1 hover:scale-105 transition-all duration-300"
+                >
+                  <ExternalLink size={12} />
+                  <span>View</span>
+                </Link>
+                <button
+                  onClick={handleDownload}
+                  className="flex-1 sm:flex-none bg-github-accent hover:bg-github-accent-hover text-white px-3 py-2 sm:py-1 rounded-lg text-xs font-medium flex items-center justify-center space-x-1 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-github-accent/25"
+                >
+                  <Download size={12} />
+                  <span>Get</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
