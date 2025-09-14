@@ -33,11 +33,11 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
           </nav>
 
           {/* Tool Header */}
-          <div className="glass-effect rounded-2xl p-8 mb-12 animate-fade-in-up">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-              <div className="flex items-center space-x-6">
+          <div className="glass-effect rounded-2xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 animate-fade-in-up">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full lg:w-auto">
                 {tool.featuredImage ? (
-                  <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-2xl ring-2 ring-github-accent/20">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl ring-2 ring-github-accent/20 flex-shrink-0">
                     <img 
                       src={tool.featuredImage} 
                       alt={tool.name}
@@ -45,71 +45,71 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                     />
                   </div>
                 ) : (
-                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-github-accent to-github-accent-hover flex items-center justify-center text-4xl shadow-2xl">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-xl sm:rounded-2xl bg-gradient-to-br from-github-accent to-github-accent-hover flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl shadow-xl flex-shrink-0">
                     {tool.icon}
                   </div>
                 )}
-                <div>
-                  <h1 className="text-4xl lg:text-5xl font-bold text-github-text mb-3 gradient-text">
+                <div className="flex-1 min-w-0">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-github-text mb-3 gradient-text leading-tight">
                     {tool.name}
                   </h1>
-                  <div className="flex flex-wrap items-center gap-4 text-github-text-secondary">
-                    <span className="bg-gradient-to-r from-github-accent to-github-accent-hover text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 text-github-text-secondary">
+                    <span className="bg-gradient-to-r from-github-accent to-github-accent-hover text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg">
                       {tool.category}
                     </span>
                     <div className="flex items-center space-x-1">
-                      <Star size={18} className="text-yellow-400 fill-current" />
-                      <span className="font-semibold">{tool.rating}</span>
+                      <Star size={14} className="sm:w-4 sm:h-4 text-yellow-400 fill-current" />
+                      <span className="text-sm sm:text-base font-semibold">{tool.rating}</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Users size={18} className="text-github-accent" />
-                      <span>{tool.downloads.toLocaleString()} downloads</span>
+                      <Users size={14} className="sm:w-4 sm:h-4 text-github-accent" />
+                      <span className="text-sm sm:text-base">{tool.downloads.toLocaleString()} downloads</span>
                     </div>
                   </div>
                 </div>
               </div>
               
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <a
                   href={tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary btn-enhanced flex items-center justify-center space-x-2 px-6 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
+                  className="btn-primary btn-enhanced flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-6 sm:py-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
                 >
-                  <Download size={22} />
+                  <Download size={18} className="sm:w-5 sm:h-5" />
                   <span>Download Now</span>
                 </a>
                 <a
                   href={tool.websiteUrl || tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary btn-enhanced flex items-center justify-center space-x-2 px-6 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
+                  className="btn-secondary btn-enhanced flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-6 sm:py-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
                 >
-                  <ExternalLink size={22} />
+                  <ExternalLink size={18} className="sm:w-5 sm:h-5" />
                   <span>Visit Website</span>
                 </a>
               </div>
             </div>
 
-            <p className="text-xl text-github-text-secondary leading-relaxed mt-6 max-w-4xl">
+            <p className="text-base sm:text-lg lg:text-xl text-github-text-secondary leading-relaxed mt-4 sm:mt-6 max-w-4xl">
               {tool.description}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Description */}
             <div className="card hover-lift animate-fade-in-up">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-bold text-github-text">About {tool.name}</h2>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
+                <h2 className="text-2xl sm:text-3xl font-bold text-github-text">About {tool.name}</h2>
                 {isWordPress && (
-                  <div className="flex items-center space-x-2 text-sm text-github-accent bg-github-accent/10 px-3 py-1 rounded-full">
-                    <Globe size={16} />
+                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-github-accent bg-github-accent/10 px-2 sm:px-3 py-1 rounded-full self-start sm:self-center">
+                    <Globe size={14} className="sm:w-4 sm:h-4" />
                     <span>From WordPress</span>
                   </div>
                 )}
@@ -126,12 +126,12 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
 
             {/* Features */}
             <div className="card hover-lift animate-fade-in-up">
-              <h2 className="text-3xl font-bold text-github-text mb-6">Key Features</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-github-text mb-4 sm:mb-6">Key Features</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {tool.features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors">
-                    <CheckCircle size={20} className="text-github-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-github-text-secondary">{feature}</span>
+                  <div key={index} className="flex items-start space-x-3 p-3 sm:p-4 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors">
+                    <CheckCircle size={16} className="sm:w-5 sm:h-5 text-github-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base text-github-text-secondary">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -139,12 +139,12 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
 
             {/* Use Cases */}
             <div className="card hover-lift animate-fade-in-up">
-              <h2 className="text-3xl font-bold text-github-text mb-6">Use Cases</h2>
-              <div className="space-y-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-github-text mb-4 sm:mb-6">Use Cases</h2>
+              <div className="space-y-3 sm:space-y-4">
                 {tool.useCases.map((useCase, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors">
-                    <div className="w-3 h-3 bg-gradient-to-r from-github-accent to-github-accent-hover rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-github-text-secondary text-lg">{useCase}</span>
+                  <div key={index} className="flex items-start space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors">
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-gradient-to-r from-github-accent to-github-accent-hover rounded-full mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                    <span className="text-sm sm:text-base lg:text-lg text-github-text-secondary">{useCase}</span>
                   </div>
                 ))}
               </div>
@@ -152,11 +152,11 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-4 sm:space-y-6">
             {/* Tool Info */}
             <div className="card hover-lift animate-slide-in-right">
-              <h3 className="text-xl font-bold text-github-text mb-6 flex items-center">
-                <Bookmark size={20} className="text-github-accent mr-2" />
+              <h3 className="text-lg sm:text-xl font-bold text-github-text mb-4 sm:mb-6 flex items-center">
+                <Bookmark size={18} className="sm:w-5 sm:h-5 text-github-accent mr-2" />
                 Tool Information
               </h3>
               <div className="space-y-4">
@@ -188,16 +188,16 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
 
             {/* Quick Actions */}
             <div className="card hover-lift animate-slide-in-right">
-              <h3 className="text-xl font-bold text-github-text mb-6 flex items-center">
-                <Share2 size={20} className="text-github-accent mr-2" />
+              <h3 className="text-lg sm:text-xl font-bold text-github-text mb-4 sm:mb-6 flex items-center">
+                <Share2 size={18} className="sm:w-5 sm:h-5 text-github-accent mr-2" />
                 Quick Actions
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 <a
                   href={tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full btn-primary btn-enhanced text-center block py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-full btn-primary btn-enhanced text-center block py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Download Tool
                 </a>
@@ -205,12 +205,12 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                   href={tool.websiteUrl || tool.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full btn-secondary btn-enhanced text-center block py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-full btn-secondary btn-enhanced text-center block py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Visit Official Site
                 </a>
-                <button className="w-full btn-secondary btn-enhanced py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2">
-                  <Heart size={18} />
+                <button className="w-full btn-secondary btn-enhanced py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2">
+                  <Heart size={16} className="sm:w-4 sm:h-4" />
                   <span>Save Tool</span>
                 </button>
               </div>
@@ -218,27 +218,27 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
 
             {/* Related Tools */}
             <div className="card hover-lift animate-slide-in-right">
-              <h3 className="text-xl font-bold text-github-text mb-6">Related Tools</h3>
-              <div className="space-y-3">
-                <div className="p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-github-accent to-github-accent-hover flex items-center justify-center text-white font-bold">
+              <h3 className="text-lg sm:text-xl font-bold text-github-text mb-4 sm:mb-6">Related Tools</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="p-2.5 sm:p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-github-accent to-github-accent-hover flex items-center justify-center text-white font-bold text-sm sm:text-base">
                       AI
                     </div>
                     <div>
-                      <h4 className="text-github-text font-medium">Similar Tool</h4>
-                      <p className="text-github-text-secondary text-sm">Explore more tools</p>
+                      <h4 className="text-github-text font-medium text-sm sm:text-base">Similar Tool</h4>
+                      <p className="text-github-text-secondary text-xs sm:text-sm">Explore more tools</p>
                     </div>
                   </div>
                 </div>
-                <div className="p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                <div className="p-2.5 sm:p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm sm:text-base">
                       B
                     </div>
                     <div>
-                      <h4 className="text-github-text font-medium">Another Tool</h4>
-                      <p className="text-github-text-secondary text-sm">Discover alternatives</p>
+                      <h4 className="text-github-text font-medium text-sm sm:text-base">Another Tool</h4>
+                      <p className="text-github-text-secondary text-xs sm:text-sm">Discover alternatives</p>
                     </div>
                   </div>
                 </div>
