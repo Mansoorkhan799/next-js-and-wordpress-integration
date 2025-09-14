@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { AITool } from './data';
+import { useMounted } from './use-mounted';
 
 interface WordPressContextType {
   wordpressTools: AITool[];
@@ -19,9 +20,12 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
   const [wordpressTools, setWordpressTools] = useState<AITool[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isMounted = useMounted();
 
   useEffect(() => {
-    let isMounted = true;
+    if (!isMounted) return;
+    
+    let isMountedRef = true;
     
     async function fetchWordPressData() {
       try {
@@ -36,16 +40,16 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        if (isMounted && data.success) {
+        if (isMountedRef && data.success) {
           setWordpressTools(data.data);
         }
       } catch (err) {
-        if (isMounted) {
+        if (isMountedRef) {
           setError(err instanceof Error ? err.message : 'Failed to fetch WordPress data');
           console.error('Error fetching WordPress posts:', err);
         }
       } finally {
-        if (isMounted) {
+        if (isMountedRef) {
           setLoading(false);
         }
       }
@@ -57,9 +61,9 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
     }
     
     return () => {
-      isMounted = false;
+      isMountedRef = false;
     };
-  }, [wordpressTools.length, loading]);
+  }, [wordpressTools.length, loading, isMounted]);
 
   return (
     <WordPressContext.Provider value={{ wordpressTools, loading, error }}>

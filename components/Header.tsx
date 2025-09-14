@@ -4,10 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Search, Menu, X } from 'lucide-react';
+import { useMounted } from '@/lib/use-mounted';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const isMounted = useMounted();
   const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -76,7 +78,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
+        {isMounted && isMenuOpen && (
           <div className="md:hidden border-t border-github-border/30 py-4 backdrop-blur-md bg-gradient-to-b from-github-dark-secondary/80 to-github-dark/60">
             <nav className="flex flex-col space-y-4">
               <Link href="/" className="text-github-text hover:text-white transition-colors">
