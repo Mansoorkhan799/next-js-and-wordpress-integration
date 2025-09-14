@@ -122,7 +122,7 @@ export default function AllToolsGrid() {
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold text-github-text mb-2">No tools found</h3>
             <p className="text-github-text-secondary">
-              Try adjusting your search terms or filters to find what you're looking for.
+              Try adjusting your search terms or filters to find what you&apos;re looking for.
             </p>
           </div>
         )}

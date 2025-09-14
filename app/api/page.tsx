@@ -58,7 +58,7 @@ export default function APIDocumentation() {
           <div className="bg-github-dark-secondary border border-github-border rounded-lg p-6">
             <Zap className="w-8 h-8 text-github-accent mb-4" />
             <h3 className="text-lg font-semibold text-github-text mb-2">Real-time Data</h3>
-            <p className="text-github-text-secondary">Access the latest AI tools and updates as they're published.</p>
+            <p className="text-github-text-secondary">Access the latest AI tools and updates as they&apos;re published.</p>
           </div>
           
           <div className="bg-github-dark-secondary border border-github-border rounded-lg p-6">
@@ -98,7 +98,7 @@ export default function APIDocumentation() {
             <div className="mt-8 bg-github-dark-secondary border border-github-border rounded-lg p-6">
               <h3 className="text-lg font-semibold text-github-text mb-4">Authentication</h3>
               <p className="text-github-text-secondary mb-4">
-                Currently, our API is open and doesn't require authentication. However, we implement rate limiting to ensure fair usage.
+                Currently, our API is open and doesn&apos;t require authentication. However, we implement rate limiting to ensure fair usage.
               </p>
               <div className="bg-github-dark-tertiary rounded p-4">
                 <code className="text-github-accent text-sm">

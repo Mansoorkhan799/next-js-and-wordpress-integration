@@ -38,7 +38,7 @@ export default function ContactUs() {
             <h1 className="text-4xl font-bold text-github-text">Contact Us</h1>
           </div>
           <p className="text-xl text-github-text-secondary max-w-2xl mx-auto">
-            Have a question, suggestion, or need support? We'd love to hear from you. Get in touch with our team.
+            Have a question, suggestion, or need support? We&apos;d love to hear from you. Get in touch with our team.
           </p>
         </div>
 

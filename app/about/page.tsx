@@ -21,7 +21,7 @@ export default function AboutPage() {
             About AI Tools Platform
           </h1>
           <p className="text-xl text-github-text-secondary max-w-3xl mx-auto">
-            We're on a mission to democratize AI tools and help users discover the best AI solutions for their needs.
+            We&apos;re on a mission to democratize AI tools and help users discover the best AI solutions for their needs.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export default function AboutPage() {
               </li>
               <li className="flex items-start space-x-3">
                 <div className="w-2 h-2 bg-github-accent rounded-full mt-2 flex-shrink-0"></div>
-                <span>Provide detailed information about each tool's features and use cases</span>
+                <span>Provide detailed information about each tool&apos;s features and use cases</span>
               </li>
               <li className="flex items-start space-x-3">
                 <div className="w-2 h-2 bg-github-accent rounded-full mt-2 flex-shrink-0"></div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-lg font-semibold text-github-text mb-2">Transparency</h3>
                 <p className="text-github-text-secondary">
-                  We provide honest reviews and clear information about each tool's features and pricing.
+                  We provide honest reviews and clear information about each tool&apos;s features and pricing.
                 </p>
               </div>
               <div>

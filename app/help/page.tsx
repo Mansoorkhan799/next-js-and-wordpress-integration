@@ -89,7 +89,7 @@ export default function HelpCenter() {
         <div className="bg-github-dark-secondary border border-github-border rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-github-text mb-4">Still Need Help?</h2>
           <p className="text-github-text-secondary mb-6">
-            Can't find what you're looking for? Our support team is here to help.
+            Can&apos;t find what you&apos;re looking for? Our support team is here to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 

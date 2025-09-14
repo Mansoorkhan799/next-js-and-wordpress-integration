@@ -44,7 +44,7 @@ export default function WhoWeAre() {
             </p>
             
             <p className="text-lg text-github-text-secondary leading-relaxed mb-8">
-              Our platform serves as a comprehensive hub where you can discover, evaluate, and access the most powerful AI tools available today. We carefully curate and test each tool to ensure quality, reliability, and effectiveness. Whether you're looking to enhance your productivity, boost your creativity, automate repetitive tasks, or explore new possibilities with AI, we provide the resources and tools you need to succeed.
+              Our platform serves as a comprehensive hub where you can discover, evaluate, and access the most powerful AI tools available today. We carefully curate and test each tool to ensure quality, reliability, and effectiveness. Whether you&apos;re looking to enhance your productivity, boost your creativity, automate repetitive tasks, or explore new possibilities with AI, we provide the resources and tools you need to succeed.
             </p>
 
             <p className="text-lg text-github-text-secondary leading-relaxed">
