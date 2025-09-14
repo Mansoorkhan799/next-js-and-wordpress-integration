@@ -215,7 +215,7 @@ export function convertWordPressPostToTool(post: WordPressPost): any {
     description: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
     category: post.ai_tool_category || 'General',
     icon: post.ai_tool_icon || '🤖',
-    featuredImage: post.featured_image_src_large ? post.featured_image_src_large[0] : null,
+    featuredImage: null, // Will be handled separately if needed
     downloadUrl: post.ai_tool_download_url || post.link,
     features: post.ai_tool_features || [],
     longDescription: post.ai_tool_about || post.content.rendered,
