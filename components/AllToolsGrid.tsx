@@ -6,9 +6,9 @@ import { aiTools, categories, AITool } from '@/lib/data';
 import { useWordPress } from '@/lib/wordpress-provider';
 import { Download, Star, ExternalLink, Search, Filter } from 'lucide-react';
 
-export default function AllToolsGrid() {
+export default function AllToolsGrid({ initialSearch }: { initialSearch?: string }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(initialSearch || '');
   const [sortBy, setSortBy] = useState('popularity');
   const { wordpressTools, loading } = useWordPress();
 

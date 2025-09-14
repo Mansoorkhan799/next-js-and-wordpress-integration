@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AllToolsPage() {
+export default function AllToolsPage({ searchParams }: { searchParams: { search?: string } }) {
   return (
     <div className="min-h-screen bg-github-dark">
       <Header />
@@ -29,7 +29,7 @@ export default function AllToolsPage() {
             </p>
           </div>
         </div>
-        <AllToolsGrid />
+        <AllToolsGrid initialSearch={searchParams.search} />
       </main>
       <Footer />
     </div>
