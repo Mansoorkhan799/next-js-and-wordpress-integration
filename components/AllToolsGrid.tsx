@@ -140,7 +140,7 @@ function ToolCard({ tool }: { tool: AITool }) {
 
   return (
     <div className="group">
-      <div className="bg-github-dark-secondary border border-github-border rounded-xl p-4 sm:p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden min-h-[280px] sm:min-h-[260px]">
+      <div className="bg-github-dark-secondary border border-github-border rounded-xl p-4 sm:p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden min-h-[240px] sm:min-h-[260px]">
         {/* Background gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-github-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
