@@ -257,10 +257,21 @@ export function convertWordPressPostToTool(post: WordPressPost): any {
                    media.source_url;
   }
 
+  // Debug excerpt
+  const excerptText = post.excerpt?.rendered || '';
+  const cleanExcerpt = excerptText.replace(/<[^>]*>/g, '').trim();
+  
+  // Temporary debug log
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`Post: ${post.title.rendered}`);
+    console.log(`Excerpt raw: ${excerptText}`);
+    console.log(`Excerpt clean: ${cleanExcerpt}`);
+  }
+  
   return {
     id: post.slug,
     name: post.title.rendered.replace(/<[^>]*>/g, ''), // Strip HTML tags
-    description: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+    description: cleanExcerpt ? cleanExcerpt.substring(0, 150) + (cleanExcerpt.length > 150 ? '...' : '') : 'No description available',
     category: post.ai_tool_category || 'General',
     icon: post.ai_tool_icon || '🤖',
     featuredImage: featuredImage,
