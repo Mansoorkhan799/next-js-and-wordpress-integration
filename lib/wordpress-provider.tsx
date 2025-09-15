@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { AITool } from './data';
 import { useMounted } from './use-mounted';
+import { clearWordPressCache } from './wordpress';
 
 interface WordPressContextType {
   wordpressTools: AITool[];
@@ -28,11 +29,11 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
     try {
       setError(null);
       // Use the Next.js API route instead of direct WordPress API call
-      const response = await fetch('/api/wordpress/posts', {
-        // Add cache control to prevent unnecessary requests
-        cache: 'force-cache',
-        next: { revalidate: 120 } // 2 minutes cache for real-time updates
-      });
+        const response = await fetch('/api/wordpress/posts', {
+          // Add cache control to prevent unnecessary requests
+          cache: 'no-cache', // Disable cache for immediate updates
+          next: { revalidate: 30 } // 30 seconds cache for real-time updates
+        });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -54,6 +55,8 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
 
   const refreshData = async () => {
     setLoading(true);
+    // Clear cache before refreshing
+    clearWordPressCache();
     await fetchWordPressData();
   };
 

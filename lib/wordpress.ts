@@ -88,7 +88,7 @@ export interface WordPressMedia {
 }
 
 // Cache configuration
-const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes - shorter cache for real-time updates
+const CACHE_DURATION = 30 * 1000; // 30 seconds - very short cache for immediate updates
 const cache = new Map<string, { data: any; timestamp: number }>();
 
 // Helper function to check cache
@@ -139,7 +139,7 @@ export async function fetchWordPressPosts(params: {
     return [];
   }
 
-  const cacheKey = `posts-${JSON.stringify(params)}`;
+  const cacheKey = `posts-${JSON.stringify(params)}-${Math.floor(Date.now() / 30000)}`; // Cache for 30 seconds
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
