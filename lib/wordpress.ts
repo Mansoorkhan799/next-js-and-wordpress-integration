@@ -40,6 +40,21 @@ export interface WordPressPost {
   featured_media: number;
   categories: number[];
   tags: number[];
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{
+      id: number;
+      source_url: string;
+      alt_text: string;
+      media_details?: {
+        sizes?: {
+          thumbnail?: { source_url: string };
+          medium?: { source_url: string };
+          large?: { source_url: string };
+          full?: { source_url: string };
+        };
+      };
+    }>;
+  };
   ai_tool_category?: string;
   ai_tool_download_url?: string;
   ai_tool_rating?: string;
@@ -124,6 +139,9 @@ export async function fetchWordPressPosts(params: {
     if (params.categories) searchParams.append('categories', params.categories);
     if (params.search) searchParams.append('search', params.search);
     if (params.slug) searchParams.append('slug', params.slug);
+    
+    // Include featured media in the response
+    searchParams.append('_embed', 'true');
 
     const url = `${WORDPRESS_CONFIG.apiUrl}/ai-tools?${searchParams.toString()}`;
     console.log('Fetching WordPress posts from:', url);
@@ -233,13 +251,24 @@ export async function fetchWordPressMedia(mediaId: number): Promise<WordPressMed
 
 // Convert WordPress post to AI Tool format
 export function convertWordPressPostToTool(post: WordPressPost): any {
+  // Extract featured image from embedded data
+  let featuredImage = null;
+  if (post._embedded?.['wp:featuredmedia']?.[0]) {
+    const media = post._embedded['wp:featuredmedia'][0];
+    // Try to get the best available size
+    featuredImage = media.media_details?.sizes?.large?.source_url || 
+                   media.media_details?.sizes?.medium?.source_url || 
+                   media.media_details?.sizes?.thumbnail?.source_url || 
+                   media.source_url;
+  }
+
   return {
     id: post.slug,
     name: post.title.rendered.replace(/<[^>]*>/g, ''), // Strip HTML tags
     description: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
     category: post.ai_tool_category || 'General',
     icon: post.ai_tool_icon || '🤖',
-    featuredImage: null, // Will be handled separately if needed
+    featuredImage: featuredImage,
     downloadUrl: post.ai_tool_download_url || post.link,
     features: post.ai_tool_features || [],
     longDescription: post.ai_tool_about || post.content.rendered,
