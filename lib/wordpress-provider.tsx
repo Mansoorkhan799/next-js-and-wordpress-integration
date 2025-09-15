@@ -32,7 +32,7 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
         const response = await fetch('/api/wordpress/posts', {
           // Add cache control to prevent unnecessary requests
           cache: 'no-cache', // Disable cache for immediate updates
-          next: { revalidate: 30 } // 30 seconds cache for real-time updates
+          next: { revalidate: 5 } // 5 seconds cache for immediate updates
         });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

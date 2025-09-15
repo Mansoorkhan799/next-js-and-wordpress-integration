@@ -4,7 +4,7 @@ import Hero from '@/components/Hero';
 import WhoWeAre from '@/components/WhoWeAre';
 import ToolGrid from '@/components/ToolGrid';
 import Footer from '@/components/Footer';
-import WordPressRefreshButton from '@/components/WordPressRefreshButton';
+import RefreshButton from '@/components/RefreshButton';
 
 export const metadata: Metadata = {
   title: 'AI Tools Platform - Discover Powerful AI Tools',
@@ -26,7 +26,7 @@ export default function HomePage() {
         <WhoWeAre />
       </main>
       <Footer />
-      <WordPressRefreshButton />
+      <RefreshButton />
     </div>
   );
 }
