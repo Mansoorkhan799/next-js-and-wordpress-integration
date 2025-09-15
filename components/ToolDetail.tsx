@@ -1,7 +1,7 @@
 'use client';
 
 import { AITool } from '@/lib/data';
-import { Download, Star, ExternalLink, Calendar, Users, CheckCircle, Globe, Share2, Heart, Bookmark } from 'lucide-react';
+import { Download, Star, ExternalLink, Calendar, Users, CheckCircle, Globe, Share2, Bookmark } from 'lucide-react';
 
 interface ToolDetailProps {
   tool: AITool & { wordpressPost?: any };
@@ -209,10 +209,6 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 >
                   Visit Official Site
                 </a>
-                <button className="w-full btn-secondary btn-enhanced py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2">
-                  <Heart size={16} className="sm:w-4 sm:h-4" />
-                  <span>Save Tool</span>
-                </button>
               </div>
             </div>
           </div>
