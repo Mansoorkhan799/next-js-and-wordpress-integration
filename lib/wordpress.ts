@@ -10,6 +10,16 @@ export const WORDPRESS_CONFIG = {
   password: process.env.WORDPRESS_PASSWORD,
 };
 
+// Debug function to log WordPress configuration
+export function logWordPressConfig() {
+  console.log('WordPress Configuration:', {
+    baseUrl: WORDPRESS_CONFIG.baseUrl,
+    apiUrl: WORDPRESS_CONFIG.apiUrl,
+    hasCredentials: !!(WORDPRESS_CONFIG.username && WORDPRESS_CONFIG.password),
+    environment: process.env.NODE_ENV,
+  });
+}
+
 // WordPress post interface
 export interface WordPressPost {
   id: number;
@@ -88,9 +98,17 @@ export async function fetchWordPressPosts(params: {
   search?: string;
   slug?: string;
 } = {}): Promise<WordPressPost[]> {
+  // Log configuration for debugging
+  logWordPressConfig();
+  
   // Return empty array if WordPress is not configured
   if (!WORDPRESS_CONFIG.apiUrl) {
     console.log('WordPress not configured, returning empty array');
+    console.log('Environment variables:', {
+      WORDPRESS_URL: process.env.WORDPRESS_URL,
+      NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL,
+      NODE_ENV: process.env.NODE_ENV,
+    });
     return [];
   }
 
@@ -108,6 +126,7 @@ export async function fetchWordPressPosts(params: {
     if (params.slug) searchParams.append('slug', params.slug);
 
     const url = `${WORDPRESS_CONFIG.apiUrl}/ai-tools?${searchParams.toString()}`;
+    console.log('Fetching WordPress posts from:', url);
     
     const response = await fetch(url, {
       headers: {
@@ -115,11 +134,16 @@ export async function fetchWordPressPosts(params: {
       },
     });
 
+    console.log('WordPress API response status:', response.status);
+
     if (!response.ok) {
-      throw new Error(`WordPress API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('WordPress API error:', response.status, errorText);
+      throw new Error(`WordPress API error: ${response.status} - ${errorText}`);
     }
 
     const posts: WordPressPost[] = await response.json();
+    console.log('Successfully fetched WordPress posts:', posts.length);
     setCachedData(cacheKey, posts);
     return posts;
   } catch (error) {
