@@ -154,6 +154,9 @@ export async function fetchWordPressPosts(params: {
     
     // Include featured media in the response
     searchParams.append('_embed', 'true');
+    
+    // Include all post statuses to ensure we get all posts
+    searchParams.append('status', 'publish');
 
     const url = `${WORDPRESS_CONFIG.apiUrl}/ai-tools?${searchParams.toString()}`;
     console.log('Fetching WordPress posts from:', url);
@@ -174,6 +177,7 @@ export async function fetchWordPressPosts(params: {
 
     const posts: WordPressPost[] = await response.json();
     console.log('Successfully fetched WordPress posts:', posts.length);
+    console.log('WordPress posts details:', posts.map(p => ({ id: p.id, title: p.title.rendered, status: p.status })));
     setCachedData(cacheKey, posts);
     return posts;
   } catch (error) {
