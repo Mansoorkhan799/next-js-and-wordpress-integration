@@ -118,8 +118,12 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 <>
                   {/* Debug info */}
                   {process.env.NODE_ENV === 'development' && (
-                    <div className="mb-4 p-2 bg-yellow-100 text-black text-xs">
-                      Debug: WordPress post found. Content length: {tool.wordpressPost.content.rendered.length}
+                    <div className="mb-4 p-3 bg-blue-100 text-black text-xs rounded">
+                      <div><strong>Debug Info:</strong></div>
+                      <div>WordPress post found: ✅</div>
+                      <div>Content length: {tool.wordpressPost.content.rendered.length}</div>
+                      <div>Content preview: {tool.wordpressPost.content.rendered.substring(0, 100)}...</div>
+                      <div>Custom field 'ai_tool_about': {tool.wordpressPost.ai_tool_about || 'Not set'}</div>
                     </div>
                   )}
                   <div 
