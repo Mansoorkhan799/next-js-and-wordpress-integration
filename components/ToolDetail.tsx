@@ -117,7 +117,7 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
               {isWordPress && tool.wordpressPost ? (
                 <div 
                   className="prose-enhanced"
-                  dangerouslySetInnerHTML={{ __html: tool.wordpressPost.content.rendered }}
+                  dangerouslySetInnerHTML={{ __html: tool.longDescription }}
                 />
               ) : (
                 <p className="text-github-text-secondary leading-relaxed text-lg">{tool.longDescription}</p>

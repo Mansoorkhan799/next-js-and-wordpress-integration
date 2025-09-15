@@ -266,6 +266,8 @@ export function convertWordPressPostToTool(post: WordPressPost): any {
     console.log(`Post: ${post.title.rendered}`);
     console.log(`Excerpt raw: ${excerptText}`);
     console.log(`Excerpt clean: ${cleanExcerpt}`);
+    console.log(`About field: ${post.ai_tool_about || 'EMPTY'}`);
+    console.log(`Content: ${post.content.rendered.substring(0, 100)}...`);
   }
   
   return {
