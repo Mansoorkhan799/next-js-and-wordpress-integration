@@ -138,6 +138,9 @@ function ToolCard({ tool }: { tool: AITool }) {
     window.open(tool.downloadUrl, '_blank');
   };
 
+  // Debug logging
+  console.log('ToolCard - tool:', tool.name, 'featuredImage:', tool.featuredImage, 'icon:', tool.icon);
+
   return (
     <div className="group">
       <div className="bg-github-dark-secondary border border-github-border rounded-xl p-4 sm:p-5 hover:border-github-accent hover:shadow-xl hover:shadow-github-accent/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden min-h-[240px] sm:min-h-[260px]">

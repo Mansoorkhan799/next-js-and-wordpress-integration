@@ -33,14 +33,16 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
         // Use the Next.js API route instead of direct WordPress API call
         const response = await fetch('/api/wordpress/posts', {
           // Add cache control to prevent unnecessary requests
-          cache: 'force-cache',
-          next: { revalidate: 900 } // 15 minutes cache
+          cache: 'no-cache', // Temporarily disable cache for debugging
+          next: { revalidate: 0 } // No cache for debugging
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log('WordPress API Response:', data);
         if (isMountedRef && data.success) {
+          console.log('Setting WordPress tools:', data.data);
           setWordpressTools(data.data);
         }
       } catch (err) {
