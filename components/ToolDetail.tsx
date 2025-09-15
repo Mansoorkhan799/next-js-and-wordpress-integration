@@ -215,35 +215,6 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 </button>
               </div>
             </div>
-
-            {/* Related Tools */}
-            <div className="card hover-lift animate-slide-in-right">
-              <h3 className="text-lg sm:text-xl font-bold text-github-text mb-4 sm:mb-6">Related Tools</h3>
-              <div className="space-y-2 sm:space-y-3">
-                <div className="p-2.5 sm:p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
-                  <div className="flex items-center space-x-2 sm:space-x-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-github-accent to-github-accent-hover flex items-center justify-center text-white font-bold text-sm sm:text-base">
-                      AI
-                    </div>
-                    <div>
-                      <h4 className="text-github-text font-medium text-sm sm:text-base">Similar Tool</h4>
-                      <p className="text-github-text-secondary text-xs sm:text-sm">Explore more tools</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-2.5 sm:p-3 rounded-lg bg-github-dark-tertiary/50 hover:bg-github-dark-tertiary transition-colors cursor-pointer">
-                  <div className="flex items-center space-x-2 sm:space-x-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm sm:text-base">
-                      B
-                    </div>
-                    <div>
-                      <h4 className="text-github-text font-medium text-sm sm:text-base">Another Tool</h4>
-                      <p className="text-github-text-secondary text-xs sm:text-sm">Discover alternatives</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
