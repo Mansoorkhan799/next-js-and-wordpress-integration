@@ -281,7 +281,7 @@ export function convertWordPressPostToTool(post: WordPressPost): any {
   return {
     id: post.slug,
     name: post.title.rendered.replace(/<[^>]*>/g, ''), // Strip HTML tags
-    description: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+    description: post.excerpt.rendered.replace(/<[^>]*>/g, '').trim() || post.content.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
     category: post.ai_tool_category || 'General',
     icon: post.ai_tool_icon || '🤖',
     featuredImage: featuredImage,

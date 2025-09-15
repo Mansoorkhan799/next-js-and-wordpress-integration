@@ -119,7 +119,7 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                   {/* Debug info */}
                   {process.env.NODE_ENV === 'development' && (
                     <div className="mb-4 p-2 bg-yellow-100 text-black text-xs">
-                      Debug: WordPress post found. About content: {tool.wordpressPost.ai_tool_about ? 'Yes' : 'No'}
+                      Debug: WordPress About field: {tool.wordpressPost.ai_tool_about ? 'Yes' : 'No'}
                     </div>
                   )}
                   {tool.wordpressPost.ai_tool_about ? (
@@ -128,10 +128,9 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                       dangerouslySetInnerHTML={{ __html: tool.wordpressPost.ai_tool_about }}
                     />
                   ) : (
-                    <div 
-                      className="prose-enhanced"
-                      dangerouslySetInnerHTML={{ __html: tool.wordpressPost.content.rendered }}
-                    />
+                    <p className="text-github-text-secondary leading-relaxed text-lg">
+                      {tool.wordpressPost.excerpt.rendered.replace(/<[^>]*>/g, '')}
+                    </p>
                   )}
                 </>
               ) : (
