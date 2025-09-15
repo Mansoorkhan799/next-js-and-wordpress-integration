@@ -87,18 +87,22 @@ export interface WordPressMedia {
   };
 }
 
-// Cache configuration - DISABLED for immediate updates
-const CACHE_DURATION = 0; // No cache for immediate updates
+// Cache configuration
+const CACHE_DURATION = 30 * 1000; // 30 seconds - very short cache for immediate updates
 const cache = new Map<string, { data: any; timestamp: number }>();
 
-// Helper function to check cache - ALWAYS RETURN NULL (no cache)
+// Helper function to check cache
 function getCachedData(key: string) {
-  return null; // Always fetch fresh data
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    return cached.data;
+  }
+  return null;
 }
 
-// Helper function to set cache - NO-OP (no cache)
+// Helper function to set cache
 function setCachedData(key: string, data: any) {
-  // Do nothing - no caching
+  cache.set(key, { data, timestamp: Date.now() });
 }
 
 // Helper function to clear cache
@@ -135,7 +139,9 @@ export async function fetchWordPressPosts(params: {
     return [];
   }
 
-  // No caching - always fetch fresh data
+  const cacheKey = `posts-${JSON.stringify(params)}-${Math.floor(Date.now() / 30000)}`; // Cache for 30 seconds
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
 
   try {
     const searchParams = new URLSearchParams();
@@ -172,6 +178,7 @@ export async function fetchWordPressPosts(params: {
     const posts: WordPressPost[] = await response.json();
     console.log('Successfully fetched WordPress posts:', posts.length);
     console.log('WordPress posts details:', posts.map(p => ({ id: p.id, title: p.title.rendered, status: p.status })));
+    setCachedData(cacheKey, posts);
     return posts;
   } catch (error) {
     console.error('Error fetching WordPress posts:', error);
@@ -186,11 +193,14 @@ export async function fetchWordPressPostBySlug(slug: string): Promise<WordPressP
     return null;
   }
 
-  // No caching - always fetch fresh data
+  const cacheKey = `post-${slug}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
 
   try {
     const posts = await fetchWordPressPosts({ slug, per_page: 1 });
     const post = posts.length > 0 ? posts[0] : null;
+    setCachedData(cacheKey, post);
     return post;
   } catch (error) {
     console.error('Error fetching WordPress post:', error);

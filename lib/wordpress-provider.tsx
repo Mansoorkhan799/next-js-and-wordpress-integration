@@ -29,10 +29,10 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
     try {
       setError(null);
       // Use the Next.js API route instead of direct WordPress API call
-        const response = await fetch(`/api/wordpress/posts?t=${Date.now()}`, {
+        const response = await fetch('/api/wordpress/posts', {
           // Add cache control to prevent unnecessary requests
-          cache: 'no-store', // Completely disable cache for immediate updates
-          next: { revalidate: 0 } // No cache for real-time updates
+          cache: 'no-cache', // Disable cache for immediate updates
+          next: { revalidate: 30 } // 30 seconds cache for real-time updates
         });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -63,20 +63,11 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isMounted) return;
     
-    // Always fetch fresh data
-    fetchWordPressData();
-  }, [isMounted]);
-
-  // Auto-refresh every 30 seconds to catch updates
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const interval = setInterval(() => {
+    // Only fetch if we don't have data yet
+    if (wordpressTools.length === 0 && loading) {
       fetchWordPressData();
-    }, 30000); // Refresh every 30 seconds
-
-    return () => clearInterval(interval);
-  }, [isMounted]);
+    }
+  }, [wordpressTools.length, loading, isMounted]);
 
   return (
     <WordPressContext.Provider value={{ wordpressTools, loading, error, refreshData }}>
