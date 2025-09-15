@@ -11,11 +11,9 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const page = searchParams.get('page') || '1';
-    const per_page = searchParams.get('per_page') || '50'; // Increased from 10 to 50
+    const per_page = searchParams.get('per_page') || '50';
     const category = searchParams.get('category');
     const search = searchParams.get('search');
-
-    console.log('WordPress API call parameters:', { page, per_page, category, search });
 
     const posts = await fetchWordPressPosts({
       page: parseInt(page),
@@ -23,8 +21,6 @@ export async function GET(request: NextRequest) {
       categories: category || undefined,
       search: search || undefined,
     });
-
-    console.log('WordPress posts fetched:', posts.length);
 
     // Convert WordPress posts to tool format
     const tools = posts.map(convertWordPressPostToTool);

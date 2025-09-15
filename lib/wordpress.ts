@@ -12,12 +12,7 @@ export const WORDPRESS_CONFIG = {
 
 // Debug function to log WordPress configuration
 export function logWordPressConfig() {
-  console.log('WordPress Configuration:', {
-    baseUrl: WORDPRESS_CONFIG.baseUrl,
-    apiUrl: WORDPRESS_CONFIG.apiUrl,
-    hasCredentials: !!(WORDPRESS_CONFIG.username && WORDPRESS_CONFIG.password),
-    environment: process.env.NODE_ENV,
-  });
+  // Debug logging disabled for production
 }
 
 // WordPress post interface
@@ -108,13 +103,11 @@ function setCachedData(key: string, data: any) {
 // Helper function to clear cache
 export function clearWordPressCache() {
   cache.clear();
-  console.log('WordPress cache cleared');
 }
 
 // Helper function to clear specific cache entry
 export function clearWordPressCacheEntry(key: string) {
   cache.delete(key);
-  console.log(`WordPress cache entry cleared: ${key}`);
 }
 
 // Fetch WordPress posts
@@ -125,17 +118,8 @@ export async function fetchWordPressPosts(params: {
   search?: string;
   slug?: string;
 } = {}): Promise<WordPressPost[]> {
-  // Log configuration for debugging
-  logWordPressConfig();
-  
   // Return empty array if WordPress is not configured
   if (!WORDPRESS_CONFIG.apiUrl) {
-    console.log('WordPress not configured, returning empty array');
-    console.log('Environment variables:', {
-      WORDPRESS_URL: process.env.WORDPRESS_URL,
-      NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL,
-      NODE_ENV: process.env.NODE_ENV,
-    });
     return [];
   }
 
@@ -159,15 +143,12 @@ export async function fetchWordPressPosts(params: {
     searchParams.append('status', 'publish');
 
     const url = `${WORDPRESS_CONFIG.apiUrl}/ai-tools?${searchParams.toString()}`;
-    console.log('Fetching WordPress posts from:', url);
     
     const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
-    console.log('WordPress API response status:', response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -176,8 +157,6 @@ export async function fetchWordPressPosts(params: {
     }
 
     const posts: WordPressPost[] = await response.json();
-    console.log('Successfully fetched WordPress posts:', posts.length);
-    console.log('WordPress posts details:', posts.map(p => ({ id: p.id, title: p.title.rendered, status: p.status })));
     setCachedData(cacheKey, posts);
     return posts;
   } catch (error) {
