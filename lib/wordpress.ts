@@ -88,7 +88,7 @@ export interface WordPressMedia {
 }
 
 // Cache configuration
-const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes - longer cache for better performance
+const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes - shorter cache for real-time updates
 const cache = new Map<string, { data: any; timestamp: number }>();
 
 // Helper function to check cache
@@ -103,6 +103,18 @@ function getCachedData(key: string) {
 // Helper function to set cache
 function setCachedData(key: string, data: any) {
   cache.set(key, { data, timestamp: Date.now() });
+}
+
+// Helper function to clear cache
+export function clearWordPressCache() {
+  cache.clear();
+  console.log('WordPress cache cleared');
+}
+
+// Helper function to clear specific cache entry
+export function clearWordPressCacheEntry(key: string) {
+  cache.delete(key);
+  console.log(`WordPress cache entry cleared: ${key}`);
 }
 
 // Fetch WordPress posts

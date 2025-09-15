@@ -8,12 +8,14 @@ interface WordPressContextType {
   wordpressTools: AITool[];
   loading: boolean;
   error: string | null;
+  refreshData: () => Promise<void>;
 }
 
 const WordPressContext = createContext<WordPressContextType>({
   wordpressTools: [],
   loading: true,
   error: null,
+  refreshData: async () => {},
 });
 
 export function WordPressProvider({ children }: { children: ReactNode }) {
@@ -22,51 +24,50 @@ export function WordPressProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const isMounted = useMounted();
 
+  const fetchWordPressData = async () => {
+    try {
+      setError(null);
+      // Use the Next.js API route instead of direct WordPress API call
+      const response = await fetch('/api/wordpress/posts', {
+        // Add cache control to prevent unnecessary requests
+        cache: 'force-cache',
+        next: { revalidate: 120 } // 2 minutes cache for real-time updates
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (isMounted && data.success) {
+        setWordpressTools(data.data);
+      }
+    } catch (err) {
+      if (isMounted) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch WordPress data');
+        console.error('Error fetching WordPress posts:', err);
+      }
+    } finally {
+      if (isMounted) {
+        setLoading(false);
+      }
+    }
+  };
+
+  const refreshData = async () => {
+    setLoading(true);
+    await fetchWordPressData();
+  };
+
   useEffect(() => {
     if (!isMounted) return;
     
-    let isMountedRef = true;
-    
-    async function fetchWordPressData() {
-      try {
-        setError(null);
-        // Use the Next.js API route instead of direct WordPress API call
-        const response = await fetch('/api/wordpress/posts', {
-          // Add cache control to prevent unnecessary requests
-          cache: 'force-cache',
-          next: { revalidate: 900 } // 15 minutes cache
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (isMountedRef && data.success) {
-          setWordpressTools(data.data);
-        }
-      } catch (err) {
-        if (isMountedRef) {
-          setError(err instanceof Error ? err.message : 'Failed to fetch WordPress data');
-          console.error('Error fetching WordPress posts:', err);
-        }
-      } finally {
-        if (isMountedRef) {
-          setLoading(false);
-        }
-      }
-    }
-
     // Only fetch if we don't have data yet
     if (wordpressTools.length === 0 && loading) {
       fetchWordPressData();
     }
-    
-    return () => {
-      isMountedRef = false;
-    };
   }, [wordpressTools.length, loading, isMounted]);
 
   return (
-    <WordPressContext.Provider value={{ wordpressTools, loading, error }}>
+    <WordPressContext.Provider value={{ wordpressTools, loading, error, refreshData }}>
       {children}
     </WordPressContext.Provider>
   );
