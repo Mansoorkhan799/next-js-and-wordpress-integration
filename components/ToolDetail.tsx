@@ -115,10 +115,18 @@ export default function ToolDetail({ tool, isWordPress = false }: ToolDetailProp
                 )}
               </div>
               {isWordPress && tool.wordpressPost ? (
-                <div 
-                  className="prose-enhanced"
-                  dangerouslySetInnerHTML={{ __html: tool.wordpressPost.content.rendered }}
-                />
+                <>
+                  {/* Debug info */}
+                  {process.env.NODE_ENV === 'development' && (
+                    <div className="mb-4 p-2 bg-yellow-100 text-black text-xs">
+                      Debug: WordPress post found. Content length: {tool.wordpressPost.content.rendered.length}
+                    </div>
+                  )}
+                  <div 
+                    className="prose-enhanced"
+                    dangerouslySetInnerHTML={{ __html: tool.wordpressPost.content.rendered }}
+                  />
+                </>
               ) : (
                 <p className="text-github-text-secondary leading-relaxed text-lg">{tool.longDescription}</p>
               )}

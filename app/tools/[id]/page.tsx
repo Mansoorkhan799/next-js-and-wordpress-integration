@@ -78,11 +78,13 @@ export default async function ToolPage({ params }: PageProps) {
   
   if (wordpressPost) {
     const tool = convertWordPressPostToTool(wordpressPost);
+    // Add the original WordPress post data to the tool object
+    const toolWithWordPressData = { ...tool, wordpressPost };
     return (
       <div className="min-h-screen bg-github-dark">
         <Header />
         <main>
-          <ToolDetail tool={tool} isWordPress={true} />
+          <ToolDetail tool={toolWithWordPressData} isWordPress={true} />
         </main>
         <Footer />
       </div>
